@@ -60,6 +60,23 @@ const main = Object.assign({}, common, {
   ]
 })
 
+const puppeteer = Object.assign({}, common, {
+  entry: {
+    puppeteer: './src/puppeteer.js'
+  },
+  output: {
+    filename: `puppeteer.bundle.js`,
+    path: path.resolve(__dirname, 'build')
+  },
+  plugins: [
+    new CleanWebpackPlugin(['build']),
+    new HtmlWebpackPlugin({
+      template: 'src/puppeteer.html',
+      filename: 'puppeteer.html'
+    })
+  ]
+})
+
 const sandbox = Object.assign({}, common, {
   entry: {
     sandbox: './src/sandbox.js'
@@ -77,7 +94,7 @@ const sandbox = Object.assign({}, common, {
   ]
 })
 
-const configs = [main]
+const configs = [main, puppeteer]
 if (isDev) {
   // In development...
   configs.push(sandbox)

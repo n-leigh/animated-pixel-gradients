@@ -16,6 +16,7 @@
   "author": "Noah Leigh",
   "license": "MIT",
   "dependencies": {
+    "color-scheme": "^1.0.0",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "gif.js": "^0.2.0",
@@ -23,6 +24,7 @@
     "jquery": "^3.3.1",
     "mainloop.js": "^1.0.4",
     "opentype.js": "^0.7.3",
+    "puppeteer": "^1.0.0",
     "spectrum-colorpicker": "^1.8.0"
   },
   "devDependencies": {
