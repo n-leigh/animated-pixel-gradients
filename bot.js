@@ -1,4 +1,5 @@
 /* eslint-env node */
+const isDocker = require('is-docker')
 const puppeteer = require('puppeteer')
 const ColorScheme = require('color-scheme')
 
@@ -50,7 +51,11 @@ const parseDataUrl = (dataUrl) => {
  * containing base64 encoded blob and a `mime` property describing the type of of the blob
  */
 const getGeneratedImageData = async (url, options, optionsInputSelector, submitSelector, outputSelector) => {
-  const browser = await puppeteer.launch({headless: true})
+  const browser = await puppeteer.launch({
+    headless: true,
+    // If we're inside a docker container, use --no-sandbox
+    args: isDocker() ? ['--no-sandbox'] : []
+  })
   const page = await browser.newPage()
   await page.goto(url)
   await page.evaluate((config, inputSelector, submitSelector) => {
