@@ -7,6 +7,7 @@ const express = require('express')
 const helmet = require('helmet')
 const app = express()
 const {generateRandomGif} = require('./bot_libs/puppeteer')
+const {getTwitterClient, sendTweet} = require('./bot_libs/twitter')
 require('dotenv').config()
 
 app.use(helmet())
@@ -45,6 +46,10 @@ app.get(`/${process.env.tweetEndpoint}`, (request, response) => {
     '#form-gif-config input[type="submit"]',
     '#gif-link'
   ).then((result) => {
+    const client = getTwitterClient()
+    sendTweet(client, result.options.text, result.imageData)
+      .then(tweet => console.log(tweet))
+      .catch(error => console.error(error))
     response.status(200).type(result.imageData.mime).send(result.imageData.buffer)
   }).catch((err) => {
     console.error(err)
