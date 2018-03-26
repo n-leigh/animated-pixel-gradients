@@ -104,7 +104,11 @@ const generateGifOptions = ({width, height, scalingFactor, wordList, fontSize}) 
 
 const generateRandomGif = async (gifOptions, url, optionsInputSelector, submitSelector, outputSelector) => {
   const options = generateGifOptions(gifOptions)
-  return getGeneratedImageData(url, options, optionsInputSelector, submitSelector, outputSelector)
+  const imageData = await getGeneratedImageData(url, options, optionsInputSelector, submitSelector, outputSelector)
+  return {
+    options,
+    imageData
+  }
 }
 
 module.exports = {
