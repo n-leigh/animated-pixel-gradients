@@ -6,7 +6,7 @@ const path = require('path')
 const express = require('express')
 const helmet = require('helmet')
 const app = express()
-const generateRandomGif = require('./bot').generateRandomGif
+const {generateRandomGif} = require('./bot_libs/puppeteer')
 require('dotenv').config()
 
 app.use(helmet())
