@@ -45,7 +45,7 @@ app.get(`/${process.env.tweetEndpoint}`, (request, response) => {
     '#form-gif-config input[type="submit"]',
     '#gif-link'
   ).then((result) => {
-    response.status(200).type(result.mime).send(result.buffer)
+    response.status(200).type(result.imageData.mime).send(result.imageData.buffer)
   }).catch((err) => {
     console.error(err)
     response.status(500).send(err.message)
