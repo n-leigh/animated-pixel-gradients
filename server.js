@@ -13,7 +13,7 @@ app.use(helmet())
 app.use(express.static('build'))
 
 // Website endpoint
-app.get('/', function (request, response) {
+app.get('/', (request, response) => {
   response.sendFile(path.resolve(__dirname, 'build/client.html'))
 })
 
@@ -33,7 +33,7 @@ app.get(`/${process.env.tweetEndpoint}`, (request, response) => {
 })
 
 // listen for requests
-const listener = app.listen(process.env.PORT, function () {
+const listener = app.listen(process.env.PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port)
 })
 

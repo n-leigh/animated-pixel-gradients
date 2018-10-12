@@ -4,7 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
-// Use argv to detect which mode we're in
 module.exports = (env, argv) => {
   const config = {
     entry: {
@@ -12,7 +11,8 @@ module.exports = (env, argv) => {
       puppeteer: './src/puppeteer.js'
     },
     output: {
-      filename: `[name].bundle${argv.mode === 'production' ? '.min' : ''}.js`,
+      // Use argv to detect which mode we're in
+      filename: `client.bundle${argv.mode === 'production' ? '.min' : ''}.js`,
       path: path.resolve(__dirname, 'build')
     },
     plugins: [
@@ -28,7 +28,7 @@ module.exports = (env, argv) => {
         template: 'src/puppeteer.html',
         filename: 'puppeteer.html',
         favicon: 'src/assets/favicon.ico'
-      }),
+      })
     ],
     devtool: 'source-map',
     module: {
@@ -68,6 +68,6 @@ module.exports = (env, argv) => {
       })
     )
   }
-  
+
   return config
 }
