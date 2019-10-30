@@ -1,8 +1,9 @@
 require('dotenv').config()
 const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const SriPlugin = require('webpack-subresource-integrity')
 
 module.exports = (env, argv) => {
   const config = {
@@ -12,11 +13,12 @@ module.exports = (env, argv) => {
     },
     output: {
       // Use argv to detect which mode we're in
-      filename: `[name].bundle${argv.mode === 'production' ? '.min' : ''}.js`,
-      path: path.resolve(__dirname, 'build')
+      filename: `client.bundle${argv.mode === 'production' ? '.min' : ''}.js`,
+      path: path.resolve(__dirname, 'build'),
+      crossOriginLoading: 'anonymous'
     },
     plugins: [
-      new CleanWebpackPlugin(['build']),
+      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         chunks: ['client'],
         template: 'src/client.html',
@@ -28,9 +30,18 @@ module.exports = (env, argv) => {
         template: 'src/puppeteer.html',
         filename: 'puppeteer.html',
         favicon: 'src/assets/favicon.ico'
+      }),
+      new SriPlugin({
+        hashFuncNames: ['sha256', 'sha384'],
+        enabled: true
       })
     ],
     devtool: 'source-map',
+    optimization: {
+      minimizer: [new TerserPlugin({
+        sourceMap: true
+      })]
+    },
     module: {
       rules: [
         {
@@ -44,7 +55,7 @@ module.exports = (env, argv) => {
           test: /\.worker\.js$/,
           use: {
             loader: 'worker-loader',
-            options: {name: '[name].js'}
+            options: { name: '[name].js' }
           }
         },
         {
@@ -56,17 +67,6 @@ module.exports = (env, argv) => {
   }
 
   if (argv.mode === 'production') {
-    config.plugins.push(
-      new UglifyJSPlugin({
-        sourceMap: true,
-        parallel: true,
-        uglifyOptions: {
-          compress: {
-            inline: 1
-          }
-        }
-      })
-    )
   }
 
   return config

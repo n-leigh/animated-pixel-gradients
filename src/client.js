@@ -8,10 +8,8 @@ import MainLoop from 'mainloop.js'
 import makeGif from './makeGif.js'
 import {
   setupAnimationState, replaceElement,
-  hexToRgb, formToJson, storageAvailable,
-  testInputColorSupport} from './utils.js'
-import {createState, updateFactory, drawFactory} from './animatedGradientFuncs.js'
-import {makeColorPicker} from './colorPicker'
+  hexToRgb, formToJson, storageAvailable } from './utils.js'
+import { createState, updateFactory, drawFactory } from './animatedGradientFuncs.js'
 
 /**
  * Take the contents of an HTMLFormElement and return a object suitable for use as options for
@@ -113,7 +111,7 @@ const renderGifHandler = (form, font, progressElement, linkContainer) => {
  */
 const saveFormContents = (form) => {
   const formData = formToJson(form)
-  for (let pair of Object.entries(formData)) {
+  for (const pair of Object.entries(formData)) {
     const [name, value] = pair
     sessionStorage.setItem(name, value)
   }
@@ -136,22 +134,6 @@ const loadFormContents = (form) => {
       }
     }
   })
-}
-
-/**
- * Add Spectrum color pickers to all the `<input type="color">` elements within a form.
- * @param {HTMLFormElement} form - Form whose color inputs you want to have Spectrum color pickers
- */
-const setupColorPickers = (form) => {
-  Array.from(form.querySelectorAll('input[type="color"]'))
-    .forEach((element) => {
-      makeColorPicker(element, {
-        showInput: true,
-        change: (color) => {
-          element.value = color.toHexString()
-        }
-      })
-    })
 }
 
 /**
@@ -216,9 +198,6 @@ const init = () => {
   // Load form contents from sessionStorage if available
   if (storageAvailable('sessionStorage')) {
     loadFormContents(form)
-  }
-  if (!testInputColorSupport()) {
-    setupColorPickers(form)
   }
 
   // Start the preview animation
