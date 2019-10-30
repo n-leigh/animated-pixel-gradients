@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
     },
     output: {
       // Use argv to detect which mode we're in
-      filename: `client.bundle${argv.mode === 'production' ? '.min' : ''}.js`,
+      filename: `[name].bundle${argv.mode === 'production' ? '.min' : ''}.js`,
       path: path.resolve(__dirname, 'build'),
       crossOriginLoading: 'anonymous'
     },
