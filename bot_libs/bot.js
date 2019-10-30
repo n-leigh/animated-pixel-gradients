@@ -1,5 +1,5 @@
-const {generateRandomGif} = require('./puppeteer')
-const {getTwitterClient, sendTweet} = require('./twitter')
+const { generateRandomGif } = require('./puppeteer')
+const { getTwitterClient, sendTweet } = require('./twitter')
 
 const twitterBotHandlerGenerator = (config) => {
   const twitterBotHandler = async (request, response) => {

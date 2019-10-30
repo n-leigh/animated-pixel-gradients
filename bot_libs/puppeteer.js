@@ -74,7 +74,7 @@ const getGeneratedImageData = async (url, options, optionsInputSelector, submitS
   return result
 }
 
-const generateGifOptions = ({width, height, scalingFactor, wordList, fontSize}) => {
+const generateGifOptions = ({ width, height, scalingFactor, wordList, fontSize }) => {
   const scheme = new ColorScheme()
   const schemeType = Math.random() < 0.5 ? 'contrast' : 'analogic'
   const fullColors = scheme

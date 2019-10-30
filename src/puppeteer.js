@@ -3,8 +3,8 @@
 import visitorFont from './assets/visitor1.ttf'
 import * as opentype from 'opentype.js'
 import makeGif from './makeGif.js'
-import {setupAnimationState} from './utils.js'
-import {createState, updateFactory, drawFactory} from './animatedGradientFuncs.js'
+import { setupAnimationState } from './utils.js'
+import { createState, updateFactory, drawFactory } from './animatedGradientFuncs.js'
 
 /**
  * Convenience function to take the contents of `form` and use them to configure

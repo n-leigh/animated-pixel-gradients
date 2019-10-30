@@ -6,7 +6,7 @@ const fs = require('fs')
 const express = require('express')
 const helmet = require('helmet')
 const app = express()
-const {twitterBotHandlerGenerator} = require('./bot_libs/bot')
+const { twitterBotHandlerGenerator } = require('./bot_libs/bot')
 require('dotenv').config()
 
 app.use(helmet())
